@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>KYC Boost Panel</title>
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #0f2027, #000);
+    color: #e0e0e0;
+}
+
+.container {
+    max-width: 520px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #0b0f14;
+    border-radius: 15px;
+    box-shadow: 0 0 30px #00ffd533;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    margin: 0;
+    color: #00ffd5;
+    letter-spacing: 1px;
+}
+
+header p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.card {
+    background: #111822;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 14px;
+    color: #bbb;
+}
+
+select, input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    background: #0a0f15;
+    border: 1px solid #1f2937;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+}
+
+select:focus, input:focus {
+    outline: none;
+    border-color: #00ffd5;
+}
+
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #00ffd5, #00aaff);
+    color: #000;
+    transition: 0.2s;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.status {
+    margin-top: 15px;
+    padding: 12px;
+    background: #05080c;
+    border-radius: 10px;
+    font-size: 13px;
+    min-height: 60px;
+    overflow-x: auto;
+}
+
+.service-icon {
+    font-size: 18px;
+    margin-right: 6px;
+}
+
+footer {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <header>
+        <h1><i class="fa-solid fa-bolt"></i> JEFF BOOSTING SERVICES</h1>
+        <p>Multi-Platform Boosting Panel</p>
+    </header>
+
+    <div class="card">
+        <label>Boost Service</label>
+        <select id="service">
+            <option value="tiktok_views">🎵 TikTok Views</option>
+            <option value="tiktok_likes">❤️ TikTok Likes</option>
+            <option value="tiktok_followers">👤 TikTok Followers</option>
+            <option value="instagram_views">📸 Instagram Views</option>
+            <option value="youtube_views">▶️ YouTube Views</option>
+            <option value="twitter_views">🐦 Twitter Views</option>
+            <option value="facebook_boost">📘 Facebook Boost</option>
+            <option value="telegram_views">✈️ Telegram Views</option>
+        </select>
+    </div>
+
+    <div class="card">
+        <label>Target URL</label>
+        <input type="text" id="url" placeholder="Paste link here...">
+    </div>
+
+    <button onclick="sendBoost()">
+        <i class="fa-solid fa-rocket"></i> START BOOST
+    </button>
+
+    <div class="status" id="status">
+        Waiting for request...
+    </div>
+
+    <footer>
+        Made by KYC | Powered by Zefame API
+    </footer>
+</div>
+
+<script>
+const API = "http://localhost:5000/api";
+
+function sendBoost() {
+    const service = document.getElementById("service").value;
+    const url = document.getElementById("url").value;
+    const status = document.getElementById("status");
+
+    if (!url) {
+        status.innerText = "❌ Please enter a URL";
+        return;
+    }
+
+    let endpoint = "";
+
+    switch(service) {
+        case "tiktok_views": endpoint = "/tiktok/views"; break;
+        case "tiktok_likes": endpoint = "/tiktok/likes"; break;
+        case "tiktok_followers": endpoint = "/tiktok/followers"; break;
+        case "instagram_views": endpoint = "/instagram/views"; break;
+        case "youtube_views": endpoint = "/youtube/views"; break;
+        case "twitter_views": endpoint = "/twitter/views"; break;
+        case "facebook_boost": endpoint = "/facebook/boost"; break;
+        case "telegram_views": endpoint = "/telegram/views"; break;
+    }
+
+    status.innerText = "⏳ Sending request...";
+
+    fetch(API + endpoint, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ url })
+    })
+    .then(res => res.json())
+    .then(data => {
+        status.innerText = JSON.stringify(data, null, 2);
+    })
+    .catch(err => {
+        status.innerText = "❌ Error connecting to backend";
+    });
+}
+</script>
+
+</body>
+</html>
