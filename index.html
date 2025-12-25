@@ -1,201 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>KYC Boost Panel</title>
 
-<!-- Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Font Awesome for icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
 
 <style>
-* {
-    box-sizing: border-box;
+:root{
+  --bg:#071019;
+  --card:#09121a;
+  --muted:#9aa6b2;
+  --accent1:#00ffd5;
+  --accent2:#00aaff;
 }
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle at top, #0f2027, #000);
-    color: #e0e0e0;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:linear-gradient(180deg,#071019 0%, #000 100%);
+  color:#e6f0f2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+}
+.container{
+  width:100%;
+  max-width:720px;
+  background:radial-gradient(1200px 400px at 10% 10%, rgba(0,255,213,0.04), transparent 8%),
+             linear-gradient(180deg, rgba(255,255,255,0.02), transparent 30%);
+  border-radius:14px;
+  padding:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+}
+.header{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:16px;
+}
+.brand {
+  width:56px;height:56px;border-radius:12px;
+  background:linear-gradient(135deg,var(--accent1),var(--accent2));
+  display:flex;align-items:center;justify-content:center;color:#001;
+  font-weight:800;font-size:20px;
+  box-shadow:0 6px 18px rgba(0,170,255,0.12);
+}
+.title h1{margin:0;font-size:20px}
+.title p{margin:0;color:var(--muted);font-size:13px}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:18px;
+}
+@media(max-width:880px){
+  .grid{grid-template-columns:1fr; }
 }
 
-.container {
-    max-width: 520px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #0b0f14;
-    border-radius: 15px;
-    box-shadow: 0 0 30px #00ffd533;
+.card{
+  background:var(--card);
+  padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);
 }
 
-header {
-    text-align: center;
-    margin-bottom: 25px;
-}
+.select-row{display:flex;gap:10px;align-items:center}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
 
-header h1 {
-    margin: 0;
-    color: #00ffd5;
-    letter-spacing: 1px;
+select,input{
+  width:100%;padding:11px;border-radius:8px;background:#061016;border:1px solid rgba(255,255,255,0.03);
+  color: #e6f0f2;font-size:14px;
 }
+button.primary{
+  width:100%;padding:12px;border-radius:10px;border:none;font-weight:600;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#001;margin-top:12px;
+  cursor:pointer;
+}
+.service-list{display:flex;flex-direction:column;gap:8px}
+.service-item{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;cursor:pointer}
+.service-item .icon{
+  width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;
+  background:rgba(255,255,255,0.02)
+}
+.service-item:hover{background:rgba(255,255,255,0.01)}
 
-header p {
-    color: #aaa;
-    font-size: 14px;
+.status{
+  margin-top:12px;padding:12px;border-radius:10px;background:#02060a;font-size:13px;color:var(--muted);min-height:120px;overflow:auto;
+  white-space:pre-wrap;
 }
-
-.card {
-    background: #111822;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-}
-
-label {
-    font-size: 14px;
-    color: #bbb;
-}
-
-select, input {
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    background: #0a0f15;
-    border: 1px solid #1f2937;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 14px;
-}
-
-select:focus, input:focus {
-    outline: none;
-    border-color: #00ffd5;
-}
-
-button {
-    width: 100%;
-    margin-top: 15px;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    background: linear-gradient(135deg, #00ffd5, #00aaff);
-    color: #000;
-    transition: 0.2s;
-}
-
-button:hover {
-    opacity: 0.85;
-}
-
-.status {
-    margin-top: 15px;
-    padding: 12px;
-    background: #05080c;
-    border-radius: 10px;
-    font-size: 13px;
-    min-height: 60px;
-    overflow-x: auto;
-}
-
-.service-icon {
-    font-size: 18px;
-    margin-right: 6px;
-}
-
-footer {
-    text-align: center;
-    font-size: 12px;
-    color: #666;
-    margin-top: 20px;
-}
+.small{font-size:12px;color:var(--muted);margin-top:8px}
+.footer{margin-top:14px;text-align:center;color:var(--muted);font-size:12px}
+.disabled{opacity:0.6;pointer-events:none}
 </style>
 </head>
-
 <body>
 
 <div class="container">
-    <header>
-        <h1><i class="fa-solid fa-bolt"></i> JEFF BOOSTING SERVICES</h1>
-        <p>Multi-Platform Boosting Panel</p>
-    </header>
+  <div class="header">
+    <div class="brand"><i class="fa-solid fa-bolt"></i></div>
+    <div class="title">
+      <h1>KYC BOOST PANEL</h1>
+      <p>Multi-platform boosting panel — connect to backend to place orders</p>
+    </div>
+  </div>
 
+  <div class="grid">
+    <!-- Left: controls -->
     <div class="card">
-        <label>Boost Service</label>
-        <select id="service">
-            <option value="tiktok_views">🎵 TikTok Views</option>
-            <option value="tiktok_likes">❤️ TikTok Likes</option>
-            <option value="tiktok_followers">👤 TikTok Followers</option>
-            <option value="instagram_views">📸 Instagram Views</option>
-            <option value="youtube_views">▶️ YouTube Views</option>
-            <option value="twitter_views">🐦 Twitter Views</option>
-            <option value="facebook_boost">📘 Facebook Boost</option>
-            <option value="telegram_views">✈️ Telegram Views</option>
-        </select>
+      <label for="service">Choose service</label>
+      <select id="service">
+        <option value="tiktok_views">🎵 TikTok Views</option>
+        <option value="tiktok_likes">❤️ TikTok Likes</option>
+        <option value="tiktok_followers">👤 TikTok Followers</option>
+        <option value="instagram_views">📸 Instagram Views</option>
+        <option value="youtube_views">▶️ YouTube Views</option>
+        <option value="twitter_views">🐦 Twitter/X Views</option>
+        <option value="facebook_boost">📘 Facebook Boost</option>
+        <option value="telegram_views">✈️ Telegram Views</option>
+      </select>
+
+      <div style="margin-top:12px;">
+        <label for="url">Target URL</label>
+        <input id="url" placeholder="Paste target link (example: https://tiktok.com/@user/video/123...)" />
+      </div>
+
+      <button class="primary" id="btnStart" onclick="sendBoost()"><i class="fa-solid fa-rocket"></i> Start Boost</button>
+
+      <div class="small">Note: Backend must be running and reachable from this page.</div>
     </div>
 
+    <!-- Right: status & quick actions -->
     <div class="card">
-        <label>Target URL</label>
-        <input type="text" id="url" placeholder="Paste link here...">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font-weight:600">Status</div>
+        <div style="font-size:13px;color:var(--muted)">Backend: <span id="backendState">unknown</span></div>
+      </div>
+
+      <div class="status" id="status">Waiting for action...</div>
+
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button onclick="healthCheck()" style="flex:1;padding:8px;border-radius:8px;border:none;background:#0b2633;color:#9feaf0;cursor:pointer">
+          <i class="fa-solid fa-heart-pulse"></i> Health
+        </button>
+        <button onclick="showExample()" style="flex:1;padding:8px;border-radius:8px;border:none;background:#122226;color:#99c8c8;cursor:pointer">
+          <i class="fa-solid fa-question"></i> Example
+        </button>
+      </div>
+
     </div>
+  </div>
 
-    <button onclick="sendBoost()">
-        <i class="fa-solid fa-rocket"></i> START BOOST
-    </button>
-
-    <div class="status" id="status">
-        Waiting for request...
-    </div>
-
-    <footer>
-        Made by KYC | Powered by Zefame API
-    </footer>
+  <div class="footer">Made by KYC — connect to your backend and deploy on Render (start command: <code>gunicorn backend:app</code>)</div>
 </div>
 
 <script>
-const API = "http://localhost:5000/api";
+const API_BASE = "/api"; // IMPORTANT: relative path so same domain works in Render
 
-function sendBoost() {
-    const service = document.getElementById("service").value;
-    const url = document.getElementById("url").value;
-    const status = document.getElementById("status");
+const statusEl = document.getElementById("status");
+const backendStateEl = document.getElementById("backendState");
+const btnStart = document.getElementById("btnStart");
 
-    if (!url) {
-        status.innerText = "❌ Please enter a URL";
-        return;
-    }
-
-    let endpoint = "";
-
-    switch(service) {
-        case "tiktok_views": endpoint = "/tiktok/views"; break;
-        case "tiktok_likes": endpoint = "/tiktok/likes"; break;
-        case "tiktok_followers": endpoint = "/tiktok/followers"; break;
-        case "instagram_views": endpoint = "/instagram/views"; break;
-        case "youtube_views": endpoint = "/youtube/views"; break;
-        case "twitter_views": endpoint = "/twitter/views"; break;
-        case "facebook_boost": endpoint = "/facebook/boost"; break;
-        case "telegram_views": endpoint = "/telegram/views"; break;
-    }
-
-    status.innerText = "⏳ Sending request...";
-
-    fetch(API + endpoint, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ url })
-    })
-    .then(res => res.json())
-    .then(data => {
-        status.innerText = JSON.stringify(data, null, 2);
-    })
-    .catch(err => {
-        status.innerText = "❌ Error connecting to backend";
-    });
+function setStatus(txt, isError=false) {
+  statusEl.textContent = txt;
+  statusEl.style.color = isError ? "#ff8585" : "";
 }
+
+function prettyJson(obj){
+  try { return JSON.stringify(obj, null, 2); } catch(e){ return String(obj); }
+}
+
+async function healthCheck(){
+  setStatus("Checking backend health...");
+  backendStateEl.textContent = "checking...";
+  try {
+    const res = await fetch(API_BASE + "/health");
+    const data = await res.json();
+    backendStateEl.textContent = (res.ok ? "alive" : "responding");
+    setStatus(prettyJson({ status_code: res.status, body: data }));
+  } catch(err) {
+    backendStateEl.textContent = "down";
+    setStatus("❌ Error connecting to backend (open console for details)", true);
+    console.error(err);
+  }
+}
+
+function showExample(){
+  const service = document.getElementById("service");
+  service.value = "tiktok_views";
+  document.getElementById("url").value = "https://www.tiktok.com/@example/video/1234567890123456789";
+  setStatus("Example data filled — press Start Boost.");
+}
+
+function disableUI(d){
+  if(d) btnStart.classList.add("disabled"); else btnStart.classList.remove("disabled");
+  btnStart.disabled = d;
+}
+
+async function sendBoost(){
+  const service = document.getElementById("service").value;
+  const url = document.getElementById("url").value.trim();
+
+  if(!url){
+    setStatus("❌ Please paste the target URL.", true);
+    return;
+  }
+
+  const map = {
+    "tiktok_views": "/tiktok/views",
+    "tiktok_likes": "/tiktok/likes",
+    "tiktok_followers": "/tiktok/followers",
+    "instagram_views": "/instagram/views",
+    "youtube_views": "/youtube/views",
+    "twitter_views": "/twitter/views",
+    "facebook_boost": "/facebook/boost",
+    "telegram_views": "/telegram/views"
+  };
+
+  const endpoint = map[service];
+  if(!endpoint){
+    setStatus("❌ Unknown service selected", true); return;
+  }
+
+  setStatus("⏳ Sending request to backend...");
+  disableUI(true);
+
+  try {
+    const resp = await fetch(API_BASE + endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url })
+    });
+
+    let body;
+    try { body = await resp.json(); } catch(e){ body = await resp.text(); }
+
+    if(!resp.ok){
+      setStatus("❌ Backend returned an error:\n" + prettyJson({status: resp.status, body}), true);
+    } else {
+      setStatus("✅ Success — response:\n" + prettyJson(body));
+    }
+  } catch (e){
+    console.error(e);
+    setStatus("❌ Error connecting to backend (network or CORS issue). Open developer console for details.", true);
+  } finally {
+    disableUI(false);
+  }
+}
+
+// Run a quick health check on load
+healthCheck();
 </script>
 
 </body>
